@@ -1,0 +1,17 @@
+Aca Vamos a poner la ultima version del  archivo db.php
+Acuerdense de crear el nuevo usuario y darle el permiso a la base de datos
+
+Ultima Version:
+
+<?php
+$host = 'localhost';
+$db   = 'proyecto-seminario';
+$user = 'UserProyectoSeminario';
+$pass = '1234';
+$charset = 'utf8mb4';
+
+$conn = new mysqli($host, $user, $pass, $db);
+// Verificar la conexión a la base de datos
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
