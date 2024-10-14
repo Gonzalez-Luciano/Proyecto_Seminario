@@ -21,11 +21,15 @@ export const signupSubmit = async (
   setProvince,
   setMsg,
   setError,
+  setErrorFirstPart,
+  setErrorSecondPart,
+  setSuccessFirstPart,
+  setSuccessSecondPart,
   navigate,
   clean
 ) => {
   // Validación de campos vacíos
- 
+
   if (
     user === "" ||
     pass === "" ||
@@ -38,7 +42,20 @@ export const signupSubmit = async (
     city === "" ||
     province === ""
   ) {
-    console.log(user.trim(), pass.trim(), confirmPass.trim(), email.trim(), name.trim(), surname.trim(), dni.trim(), city.trim(), address.trim(), province.trim());
+    if (
+      name === "" ||
+      surname === "" ||
+      dni === "" ||
+      address === "" ||
+      city === "" ||
+      province === ""
+    )
+      setErrorFirstPart(true);
+    else setSuccessFirstPart(true);
+
+    if (user === "" || pass === "" || confirmPass === "" || email === "")
+      setErrorSecondPart(true);
+    else setSuccessSecondPart(true);
     setError("All fields are required!");
     return;
   }
@@ -75,9 +92,9 @@ export const signupSubmit = async (
       body: JSON.stringify(Data),
     });
     const result = await response.json();
-    
+
     if (result[0].result === "Success") {
-      clean()
+      clean();
       setMsg("User registered successfully!");
       // localStorage.setItem("login", true);
       // localStorage.setItem("user", JSON.stringify(result[0].user));
