@@ -10,10 +10,6 @@ function LoginView() {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    let login = localStorage.getItem("login");
-    if (login) {
-      navigate("/dashboard");
-    }
     let loginStatus = localStorage.getItem("loginStatus");
     if (loginStatus) {
       setMsg(loginStatus);

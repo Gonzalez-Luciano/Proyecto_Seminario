@@ -39,7 +39,8 @@ if ($username != "" && $password != "") {
                     "user" => array(
                         "email" => $row["email"],
                         "username" => $row["username"]
-                    )
+                    ),
+                    "idUser" => $row["idUser"],
                 );
             } else {
                 // Contraseña incorrecta

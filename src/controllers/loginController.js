@@ -32,10 +32,11 @@ export const loginSubmit = async (
         setMsg(result[0].result);
         localStorage.setItem("login", true);
         localStorage.setItem("user", JSON.stringify(result[0].user));
-
+        const idUser =JSON.stringify(result[0].idUser);
+        console.log(idUser);
         setTimeout(function () {
-          navigate("/dashboard");
-        }, 5000);
+          navigate(`/dashboard/${idUser}`);
+        }, 1000);
       } else {
         if (result[0].result === "Invalid Password") {
           setPass("");
