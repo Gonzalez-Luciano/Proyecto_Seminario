@@ -1,14 +1,26 @@
-import React from 'react';
-import UserView from './views/UserView';  // Asegúrate de ajustar la ruta
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginView from "./views/loginView.jsx";
+import Dashboard from "./views/dashboard.jsx";
+import Protected from "./components/Protected.jsx";
+import SignUpView from "./views/signupView.jsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoginView />,
+  },
+  {
+    path: "dashboard",
+    element: <Protected Component={Dashboard} />,
+  },
+  {
+    path: "signup",
+    element: <SignUpView />,
+  },
+]);
 
 function App() {
-  return (
-    <div>
-      <h1>Welcome to the User App</h1>
-      <UserView />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
-
