@@ -1,24 +1,25 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { idUser } = useParams(); // Obtener el userId de la URL
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Convertir el string JSON a un objeto
+      setUser(JSON.parse(storedUser));
     } else {
       navigate("/"); // Si no hay usuario, redirigir al login
     }
   }, [navigate]);
 
   function logoutSubmit() {
-    localStorage.removeItem("login"); // Eliminar estado de login
-    localStorage.removeItem("user");  // Eliminar información del usuario
+    localStorage.removeItem("login");
+    localStorage.removeItem("user");
     localStorage.setItem("loginStatus", "Logged out successfully");
-    navigate("/"); // Redirigir al login
+    navigate("/");
   }
 
   return (
@@ -28,13 +29,15 @@ function Dashboard() {
         <div>
           <p>Welcome, {user.username}!</p>
           <p>Email: {user.email}</p>
+          <p>ID: {idUser}</p> {/* Muestra el idUser */}
           <p onClick={logoutSubmit} style={{ cursor: "pointer", color: "blue" }}>Logout</p>
         </div>
       ) : (
-        <p>Loading...</p> // Mostrar mientras se cargan los datos
+        <p>Loading...</p>
       )}
     </div>
   );
 }
 
 export default Dashboard;
+

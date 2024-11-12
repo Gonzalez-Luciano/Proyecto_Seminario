@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     element: <LoginView />,
   },
   {
-    path: "dashboard",
+    path: "dashboard/:idUser", // Ruta que incluye el parámetro idUser
     element: <Protected Component={Dashboard} />,
   },
   {
