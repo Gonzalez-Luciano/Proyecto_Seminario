@@ -1,9 +1,7 @@
-CREATE DATABASE  IF NOT EXISTS `proyecto-seminario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `proyecto-seminario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `proyecto-seminario`;
 
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `idUser` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `pass` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -13,12 +11,7 @@ CREATE TABLE `user` (
   KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
-
-DROP TABLE IF EXISTS `user_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_data` (
+CREATE TABLE IF NOT EXISTS `user_data` (
   `idUserData` int NOT NULL AUTO_INCREMENT,
   `idUser` int NOT NULL,
   `firstName` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -34,80 +27,83 @@ CREATE TABLE `user_data` (
   KEY `active` (`active`),
   CONSTRAINT `user_data_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
-
-
-CREATE TABLE IF NOT EXISTS cards(
-    idCard INT AUTO_INCREMENT PRIMARY KEY,
-    idUser INT NOT NULL,
-    idAcount INT NOT NULL,
-    idNetBank INT NOT NULL,
-    cardNumber VARCHAR(16) NOT NULL,
-    available boolean,
-    international boolean,
-    FOREIGN KEY (idUser) REFERENCES user (idUser),
-    FOREIGN KEY (idAcount) REFERENCES acount (idAcount),
-    FOREIGN KEY (idNetBank) REFERENCES NetBank (idNetBank)
-);
-
-CREATE TABLE IF NOT EXISTS NetBank(
-    idNetBank INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(20) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS acount(
-    idAcount INT AUTO_INCREMENT PRIMARY KEY,
-    idUser INT NOT NULL,
-    idAcountType INT NOT NULL, 
-    balance FLOAT NOT NULL, 
-    noAcount VARCHAR(15) NOT NULL,
-    cvu VARCHAR(21) NOT NULL,
-    alias VARCHAR(50) NOT NULL,
-    active boolean,
-    FOREIGN KEY (idUser) REFERENCES user(idUser),
-    FOREIGN KEY (idAcountType) REFERENCES acountType (idAcountType)
-)
-
-CREATE TABLE IF NOT EXISTS acountType(
-    idAcountType INT AUTO_INCREMENT PRIMARY KEY,
-    idChangeType INT NOT NULL,
-    idType INT NOT NULL,
-    description VARCHAR(30), --será vacío inicialmente para poder asignar la descripción según type y changetype
-    FOREIGN KEY (idType) REFERENCES type (idType),
-    FOREIGN KEY (idChangeType) REFERENCES changeType (idChangeType)
-);
-
-CREATE TABLE IF NOT EXISTS movement(
-    idMovement INT AUTO_INCREMENT PRIMARY KEY,
-    idAcount INT NOT NULL,
-    detail VARCHAR(150) NOT NULL,
-    FOREIGN KEY (idAcount) REFERENCES acount (idAcount)   
-);
-
-CREATE TABLE IF NOT EXISTS type(
+CREATE TABLE IF NOT EXISTS `type`(
     idType INT AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS changeType(
+CREATE TABLE IF NOT EXISTS `changeType`(
     idChangeType INT AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(25) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS `NetBank`(
+    idNetBank INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `accountType`(
+    idAccountType INT AUTO_INCREMENT PRIMARY KEY,
+    idChangeType INT NOT NULL,
+    idType INT NOT NULL,
+    description VARCHAR(30), /*será vacío inicialmente para poder asignar la descripción según type y changetype*/
+    FOREIGN KEY (idType) REFERENCES `type` (idType),
+    FOREIGN KEY (idChangeType) REFERENCES `changeType` (idChangeType)
+);
+
+CREATE TABLE IF NOT EXISTS `account`(
+    idAccount INT AUTO_INCREMENT PRIMARY KEY,
+    idUser INT NOT NULL,
+    idAccountType INT NOT NULL, 
+    balance FLOAT NOT NULL, 
+    noAccount VARCHAR(15) NOT NULL,
+    cvu VARCHAR(21) NOT NULL,
+    alias VARCHAR(50) NOT NULL,
+    active BOOLEAN,
+    FOREIGN KEY (idUser) REFERENCES `user`(idUser),
+    FOREIGN KEY (idAccountType) REFERENCES `accountType` (idAccountType)
+);
+
+CREATE TABLE IF NOT EXISTS `movement`(
+    idMovement INT AUTO_INCREMENT PRIMARY KEY,
+    idAccount INT NOT NULL,
+    detail VARCHAR(150) NOT NULL,
+    FOREIGN KEY (idAccount) REFERENCES `account` (idAccount)   
+);
+
+CREATE TABLE IF NOT EXISTS `cards`(
+    idCard INT AUTO_INCREMENT PRIMARY KEY,
+    idUser INT NOT NULL,
+    idAccount INT NOT NULL,
+    idNetBank INT NOT NULL,
+    cardNumber VARCHAR(16) NOT NULL,
+    available BOOLEAN,
+    international BOOLEAN,
+    FOREIGN KEY (idUser) REFERENCES `user` (idUser),
+    FOREIGN KEY (idAccount) REFERENCES `account` (idAccount),
+    FOREIGN KEY (idNetBank) REFERENCES `NetBank` (idNetBank)
+);
 
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearUsuario`(puserName VARCHAR(50), pPass VARCHAR(150),
-pEmail VARCHAR(100),OUT pidUser INT, pfirstName VARCHAR(30), plastName VARCHAR(30),
- pDni VARCHAR(12), pAdress VARCHAR(100), pCity VARCHAR(30), pProvince VARCHAR(30))
+CREATE DEFINER=`root`@`localhost` PROCEDURE IF NOT EXISTS `crearUsuario`(
+    puserName VARCHAR(50), 
+    pPass VARCHAR(150),
+    pEmail VARCHAR(100),
+    OUT pidUser INT,
+    pfirstName VARCHAR(30),
+    plastName VARCHAR(30),
+    pDni VARCHAR(12),
+    pAdress VARCHAR(100),
+    pCity VARCHAR(30),
+    pProvince VARCHAR(30)
+)
 BEGIN 
-
-		INSERT INTO user (username, pass, email) VALUES (puserName, pPass, pEmail);
-		SET pidUser = LAST_INSERT_ID();
-		INSERT INTO user_data (idUser, firstName, lastName, dni, address, city, province, ACTIVE) VALUES (pidUser, pfirstName, plastName, pDni, pAdress, pCity, pProvince, 1);
-	
-	
-	 END ;;
+    INSERT INTO user (username, pass, email) VALUES (puserName, pPass, pEmail);
+    SET pidUser = LAST_INSERT_ID();
+    INSERT INTO user_data (idUser, firstName, lastName, dni, address, city, province, active) 
+    VALUES (pidUser, pfirstName, plastName, pDni, pAdress, pCity, pProvince, 1);
+END ;;
 DELIMITER ;
 
 
