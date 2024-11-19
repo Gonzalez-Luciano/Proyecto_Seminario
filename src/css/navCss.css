@@ -1,0 +1,16 @@
+.show {
+  animation: none !important;
+}
+
+.user-icon {
+    fill: rgba(255, 255, 255, .55);
+}
+
+.user-icon:hover{
+    fill: rgba(255, 255, 255, .75);
+}
+
+.logo-img {
+    height: 55px;
+    width: auto; 
+  }

@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Nav from "../components/Nav";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -15,29 +16,25 @@ function Dashboard() {
     }
   }, [navigate]);
 
-  function logoutSubmit() {
-    localStorage.removeItem("login");
-    localStorage.removeItem("user");
-    localStorage.setItem("loginStatus", "Logged out successfully");
-    navigate("/");
-  }
+  
 
   return (
-    <div className="text-light">
-      <h3>Dashboard Page</h3>
-      {user ? (
-        <div>
-          <p>Welcome, {user.username}!</p>
-          <p>Email: {user.email}</p>
-          <p>ID: {idUser}</p> {/* Muestra el idUser */}
-          <p onClick={logoutSubmit} style={{ cursor: "pointer", color: "blue" }}>Logout</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <>
+      <Nav navigate={navigate}/>
+      <div className="text-light">
+        <h3>Dashboard Page</h3>
+        {user ? (
+          <div>
+            <p>Welcome, {user.username}!</p>
+            <p>Email: {user.email}</p>
+            <p>ID: {idUser}</p> {/* Muestra el idUser */}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </>
   );
 }
 
 export default Dashboard;
-
