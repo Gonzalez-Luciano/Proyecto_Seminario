@@ -1,21 +1,20 @@
 <?php
 
-class Card{
+class Card
+{
 
-    protected $account;
+    protected $idAccount;
     protected $cardNumber;
     protected $available;
     protected $international;
     protected $netBank;
 
-    public function __construct($account, $cardNumber, $available, $international, $netBank)
+    public function __construct($idAccount, $cardNumber, $available, $international, $netBank)
     {
-        $this->account = $account;        
+        $this->idAccount = $idAccount;
         $this->cardNumber = $cardNumber;
         $this->available = $available;
-        $this->international = $international;        
-        $this->netBank = $netBank;       
+        $this->international = $international;
+        $this->netBank = $netBank;
     }
-
-    
 }
