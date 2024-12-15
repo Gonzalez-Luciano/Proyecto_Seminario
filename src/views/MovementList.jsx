@@ -3,7 +3,6 @@ import { Movement } from "./Movement";
 
 const MovementList = ({ idUser }) => {
   const [movements1, setMovements1] = useState([]);
-  console.log(idUser);
 
   let movements = [
     {

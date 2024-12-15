@@ -23,7 +23,7 @@ export const getUser = async (user,idUser) => {
 
         const result = await response.json();
 
-
+        
 
         } catch (err) {
         setError("An error occurred: " + err.message);

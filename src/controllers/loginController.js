@@ -25,6 +25,7 @@ export const loginSubmit = async (
         body: JSON.stringify(Data),
       });
       const result = await response.json();
+      console.log(result);
       if (
         result[0].result !== "This user doesn't exist" &&
         result[0].result !== "Invalid Password"
