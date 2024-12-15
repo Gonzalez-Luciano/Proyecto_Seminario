@@ -1,0 +1,54 @@
+section {
+    display: flex;
+    gap: 10px;
+    width: 400px;
+}
+
+img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+article{
+    flex: 1;
+    margin-left: 10;
+}
+
+time{
+    font-size: 0.8em;
+    font-style: oblique;
+}
+
+.detail{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: flex-end;
+}
+
+.type{
+    font-size: 0.9em;
+}
+
+.amount {
+    font-size: 1.4em;
+}
+
+.amountReceived {
+    color: #a5ff8f;
+}
+
+.amountReceived::before {
+    content: "+";
+    padding-right: 3px;
+}
+
+.amountTransfer {
+    color: #ff8f8f;
+}
+
+.amountTransfer::before {
+    content: "-";
+    padding-right: 3px;
+}

@@ -67,9 +67,14 @@ CREATE TABLE IF NOT EXISTS `account`(
 
 CREATE TABLE IF NOT EXISTS `movement`(
     idMovement INT AUTO_INCREMENT PRIMARY KEY,
-    idAccount INT NOT NULL,
+    idAccountFrom INT NOT NULL,
+    idAccountTo INT NOT NULL,
+    amount FLOAT NOT NULL,
+    transactionDate DATE NOT NULL,
+    image VARCHAR(1000),
     detail VARCHAR(150) NOT NULL,
-    FOREIGN KEY (idAccount) REFERENCES `account` (idAccount)   
+    FOREIGN KEY (idAccountFrom) REFERENCES `account` (idAccount),
+    FOREIGN KEY (idAccountTo) REFERENCES `account` (idAccount)   
 );
 
 CREATE TABLE IF NOT EXISTS `cards`(
