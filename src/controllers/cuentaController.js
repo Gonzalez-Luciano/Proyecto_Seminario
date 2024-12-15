@@ -1,10 +1,9 @@
 export const getCuenta = async (
     idUser,
-    noCuenta,
-    balance,
-    tipoCuenta
+    setCuentas
   ) => {
-    if (true) {
+    if(idUser){
+  
       let url = "/models/cuenta.php";
       let headers = {
         Accept: "application/json",
@@ -16,22 +15,18 @@ export const getCuenta = async (
   
       try {
         const response = await fetch(url, {
-          method: "GET",
+          method: "POST",
           headers: headers,
           body: JSON.stringify(Data),
         });
         const result = await response.json();
-        // console.log(result);
-        if () {
-          
-        } else {
-          
-        }
+        setCuentas(result);
       } catch (err) {
-        setError("An error occurred: " + err.message);
+        console.log(err);
       }
-    } else {
-      setError("All fields are required!");
     }
+    else{
+      console.log("No se recibió el usuario");
+    }   
   };
   

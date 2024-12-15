@@ -1,24 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../css/cuentaCss.css'
 import '../controllers/cuentaController.js'
+import { getCuenta } from '../controllers/cuentaController.js';
 
 export const Cuentas = ({idUser}) => {
-    let accounts = [{
-        'NoCuenta':'6162358',
-        'TipoCuenta':'Caja de Ahorros en $',
-        'Saldo': '800,000.00'
-    },{
-        'NoCuenta':'6189321',
-        'TipoCuenta':'Cta Corriente en $',
-        'Saldo': '0.00'
-    },
-    {
-        'NoCuenta':'6100231',
-        'TipoCuenta':'Caja de Ahorros en U$D',
-        'Saldo': '570.00'
-    }];
     const [cuentas, setCuentas] = useState([]);
     
+    useEffect(()=>{
+        getCuenta(idUser,setCuentas);
+    }, []);
 
   return ( 
         <div className='container-fluid p-0'>
@@ -30,11 +20,11 @@ export const Cuentas = ({idUser}) => {
                             <div className='container-fluid card-body d-lg-flex justify-content-between align-items-center'
                             width="100%">
                                 <div>
-                                    <h6 className='card-title mb-0 '>{cuenta.TipoCuenta}</h6>
-                                    <small className='text-light'>{cuenta.NoCuenta}</small>
+                                    <h6 className='card-title mb-0 '>{cuenta.description}</h6>
+                                    <small className='text-light'>{cuenta.noAccount}</small>
                                 </div>
                                 <div className = "d-flex justify-content-start justify-content-lg-end"> 
-                                    <h5 className='mb-0'>{cuenta.TipoCuenta=='Caja de Ahorros en U$D' ? 'U$D ' : '$ '}{cuenta.Saldo}</h5>
+                                    <h5 className='mb-0'>{cuenta.description=='Caja de Ahorros en U$D' ? 'U$D ' : '$ '}{cuenta.balance}</h5>
                                 </div>
                             </div>
                         </a>
