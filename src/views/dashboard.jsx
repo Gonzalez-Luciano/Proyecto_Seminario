@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
+import { Cuentas } from "../components/Cuentas";
+import { NuevaCuenta } from "../components/NuevaCuenta";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -21,17 +23,19 @@ function Dashboard() {
   return (
     <>
       <Nav navigate={navigate}/>
-      <div className="text-light">
-        <h3>Dashboard Page</h3>
-        {user ? (
-          <div>
-            <p>Welcome, {user.username}!</p>
-            <p>Email: {user.email}</p>
-            <p>ID: {idUser}</p> {/* Muestra el idUser */}
+      <div className="container mt-5 text-light fixed">
+        <div className="mx-5">
+          <div className="mb-3">
+            <div className="d-flex mb-2 align-items-center">
+              <h3 className="mb-3">Cuentas</h3> 
+              <NuevaCuenta/>
+            </div>
+            <div className="container-fluid mx-5 text-light">
+              <Cuentas idUser={idUser}/>
+            </div>
           </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+
+        </div>
       </div>
     </>
   );

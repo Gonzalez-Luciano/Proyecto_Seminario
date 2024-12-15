@@ -1,0 +1,18 @@
+import React from 'react'; //rafc ->shortcut
+
+export const NuevaCuenta = () => {
+
+  function outOfService(){
+    
+  }  
+  return (
+        <button
+            className="bg-primary bg-transparent rounded-circle border-dark
+            mb-3"
+            type="button"
+            onClick={outOfService}
+        >
+            <img width="24" height="24" src="https://img.icons8.com/color/24/add--v1.png" alt="add--v1"/>
+        </button>
+  )
+}
