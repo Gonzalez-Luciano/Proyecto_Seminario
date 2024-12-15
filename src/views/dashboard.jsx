@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
+import MovementList from "./MovementList";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -16,11 +17,9 @@ function Dashboard() {
     }
   }, [navigate]);
 
-  
-
   return (
     <>
-      <Nav navigate={navigate}/>
+      <Nav navigate={navigate} />
       <div className="text-light">
         <h3>Dashboard Page</h3>
         {user ? (
@@ -28,6 +27,7 @@ function Dashboard() {
             <p>Welcome, {user.username}!</p>
             <p>Email: {user.email}</p>
             <p>ID: {idUser}</p> {/* Muestra el idUser */}
+            <MovementList idUser={idUser} />
           </div>
         ) : (
           <p>Loading...</p>
