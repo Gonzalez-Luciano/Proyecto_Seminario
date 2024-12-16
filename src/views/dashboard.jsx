@@ -27,6 +27,9 @@ function Dashboard() {
             <p>Welcome, {user.username}!</p>
             <p>Email: {user.email}</p>
             <p>ID: {idUser}</p> {/* Muestra el idUser */}
+            <br />
+            <br />
+            <br />
             <MovementList idUser={idUser} />
           </div>
         ) : (

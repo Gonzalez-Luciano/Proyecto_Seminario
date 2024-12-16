@@ -1,12 +1,20 @@
 <?php
 
-class movement
-{
+class Movement {
 
-    protected $detalle;
+    public $idMovement;
+    public $username;
+    public $amount;
+    public $transactionDate;
+    public $image;
+    public $type;
 
-    public function __construct($detalle)
-    {
-        $this->detalle = $detalle;
+    public function __construct($idMovement, $username, $amount, $transactionDate, $image, $type) {
+        $this->idMovement = $idMovement;
+        $this->username = $username;
+        $this->amount = $amount;
+        $this->transactionDate = $transactionDate;
+        $this->image = $image;
+        $this->type = $type;
     }
 }

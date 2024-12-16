@@ -30,4 +30,25 @@ export const getUser = async (user,idUser) => {
         }
     }
 };
-  
+
+// Obtener movimientos por usuario (POST para enviarle el userId)
+export const getMovementsByUserId = async (getAll, userId) => {
+    const response = await fetch("/models/movementModel.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ getAll, userId }),
+    });
+    console.log(getAll)
+    const rawResponse = await response.text(); // Lee la respuesta como texto.
+    console.log("Respuesta del servidor:", rawResponse);
+    
+    if (!response.ok) {
+        throw new Error(`Error HTTP ${response.status}: ${rawResponse}`);
+    }
+    
+    // Intenta convertir el texto a JSON solo si es válido.
+    const data = JSON.parse(rawResponse);
+    return data;
+};
