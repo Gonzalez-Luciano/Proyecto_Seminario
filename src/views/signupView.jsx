@@ -329,6 +329,18 @@ function SignUpView() {
             >
               {/* Primera Parte del Formulario */}
               <div className="w-100 p-5 text-light d-flex align-items-center flex-column border-opacity-10 border-login first-part">
+                <div>
+                  <img
+                    src="/images/AlianzIcono.png"
+                    alt=""
+                    style={{
+                      width: "90px",
+                      height: "auto",
+                      marginBottom: "25px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </div>
                 {/* Nombre */}
                 <div className="form-floating mb-3 mx-2">
                   <input
@@ -481,6 +493,18 @@ function SignUpView() {
               className={`carousel-item ${activeIndex === 1 ? "active" : ""}`}
             >
               <div className="w-100 p-5 text-light d-flex align-items-center flex-column border-opacity-10 border-login second-part">
+                <div>
+                  <img
+                    src="/images/AlianzIcono.png"
+                    alt=""
+                    style={{
+                      width: "90px",
+                      height: "auto",
+                      marginBottom: "25px",
+                      borderRadius: "0px",
+                    }}
+                  />
+                </div>
                 {/* UserName */}
                 <div className="form-floating mb-3 mx-2">
                   <input
@@ -610,7 +634,7 @@ function SignUpView() {
       </div>
       <div className="p-5 mt-4 border-opacity-10 border-login text-light align-center">
         Do you already have an account?{" "}
-        <a className="link link-primary" onClick={loginRedirect}>
+        <a className="link link-success" onClick={loginRedirect}>
           Click here
         </a>
       </div>

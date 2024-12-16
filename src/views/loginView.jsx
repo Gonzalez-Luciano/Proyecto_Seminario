@@ -52,7 +52,10 @@ function LoginView() {
   };
 
   return (
-    <div className="container d-flex justify-content-center flex-column align-items-center w-auto">
+    <div
+      className="container d-flex justify-content-center flex-column align-items-center w-auto"
+      data-bs-theme="dark"
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -61,6 +64,17 @@ function LoginView() {
         noValidate
       >
         <div className="w-100 p-5 text-light d-flex align-items-center flex-column border-opacity-10 border-login ">
+          <div>
+            <img
+              src="/images/AlianzIcono.png"
+              alt=""
+              style={{
+                width: "90px",
+                height: "auto",
+                borderRadius: "0px",
+              }}
+            />
+          </div>
           <p>
             {error ? (
               <span className="text-danger">{error}</span>
@@ -113,9 +127,10 @@ function LoginView() {
           </button>
         </div>
       </form>
-      <div className="mt-3">
-        <a className="link link-primary" onClick={signupRedirect}>
-          Create an account
+      <div className="p-5 mt-4 border-opacity-10 border-login text-light align-center">
+        Don't have an account yet?{" "}
+        <a className="link link-success" onClick={signupRedirect}>
+          Click here
         </a>
       </div>
     </div>
