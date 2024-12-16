@@ -80,7 +80,7 @@ export const signupSubmit = async (
     name: name,
     surname: surname,
     dni: dni,
-    adress: address,
+    address: address,
     city: city,
     province: province,
   };

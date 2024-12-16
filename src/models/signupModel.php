@@ -16,14 +16,14 @@ $email = $dData["email"];
 $name = $dData["name"];
 $surname = $dData["surname"];
 $dni = $dData["dni"];
-$adress = $dData["adress"];
+$address = $dData["address"];
 $city = $dData["city"];
 $province = $dData["province"];
 
 $response = array();
 
 // Validación básica de campos
-if ($username != "" && $password != "" && $email != "" && $name != "" && $surname != "" && $dni != "" && $adress != "" && $city != "" && $province != "") {
+if ($username != "" && $password != "" && $email != "" && $name != "" && $surname != "" && $dni != "" && $address != "" && $city != "" && $province != "") {
     
     // Hashear la contraseña antes de guardarla
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -35,7 +35,7 @@ if ($username != "" && $password != "" && $email != "" && $name != "" && $surnam
         // Bind de los parámetros de entrada
         $stmt->bind_param(
             "sssssssss",  // Tipos de los parámetros
-            $username, $hashedPassword, $email, $name, $surname, $dni, $adress, $city, $province
+            $username, $hashedPassword, $email, $name, $surname, $dni, $address, $city, $province
         );
 
         // Ejecutar el procedimiento almacenado

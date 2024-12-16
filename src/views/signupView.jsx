@@ -90,7 +90,6 @@ function SignUpView() {
   ]);
 
   const verifySuccess = () => {
-    console.log("Juan");
     if (
       !(
         name === "" ||
@@ -176,9 +175,9 @@ function SignUpView() {
         break;
       case "address":
         setAddress(value);
-        console.log("adress " + value);
+        console.log("address " + value);
         if (value === "") {
-          setError("Adress is required");
+          setError("Address is required");
           setErrorFirstPart(true);
         }
         break;
@@ -407,7 +406,7 @@ function SignUpView() {
                     className={`form-control input-signin wpx-300 ${
                       (error === "All fields are required!" &&
                         address === "") ||
-                      error === "Adress is required"
+                      error === "Address is required"
                         ? "is-invalid"
                         : ""
                     }

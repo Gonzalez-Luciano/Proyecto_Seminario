@@ -22,7 +22,7 @@ function Dashboard() {
 
   return (
     <> 
-      <Nav navigate={navigate}/>
+      <Nav navigate={navigate} idUser={idUser}/>
       <div className="container mt-5 text-light fixed">
         {user ? (
           <div className="mx-5">
