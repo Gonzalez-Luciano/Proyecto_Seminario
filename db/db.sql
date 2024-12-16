@@ -106,41 +106,41 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE IF NOT EXISTS `crearUsuario`(
 BEGIN 
     INSERT INTO user (username, pass, email) VALUES (puserName, pPass, pEmail);
     SET pidUser = LAST_INSERT_ID();
-    INSERT INTO user_data (idUser, firstName, lastName, dni, address, city, province, active) 
-    VALUES (pidUser, pfirstName, plastName, pDni, pAdress, pCity, pProvince, 1);
+    INSERT INTO user_data (idUser, firstName, lastName, dni, address, city, province,image, active) 
+    VALUES (pidUser, pfirstName, plastName, pDni, pAdress, pCity, pProvince,"default", 1);
 END ;;
 DELIMITER ;
 
-INSERT INTO `type` (DESCRIPTION) VALUES ("Cuenta corriente");
+-- INSERT INTO `type` (DESCRIPTION) VALUES ("Cuenta corriente");
 
-INSERT INTO `changeType` (DESCRIPTION) VALUES("dolares");
+-- INSERT INTO `changeType` (DESCRIPTION) VALUES("dolares");
 
-INSERT INTO `accountType` (idChangeType, idType, description) VALUES(
-	2,
-	1,
-	"Caja de Ahorro en U$D"
-);
+-- INSERT INTO `accountType` (idChangeType, idType, description) VALUES(
+-- 	2,
+-- 	1,
+-- 	"Caja de Ahorro en U$D"
+-- );
 
-INSERT INTO `account` (idUser,idAccountType, balance, noAccount, cvu, alias) VALUES (
-	7,
-	3,
-	340,
-	"61716712",
-	"987654321123456789023",
-	"dado.ovulo"
-) 
+-- INSERT INTO `account` (idUser,idAccountType, balance, noAccount, cvu, alias) VALUES (
+-- 	7,
+-- 	3,
+-- 	340,
+-- 	"61716712",
+-- 	"987654321123456789023",
+-- 	"dado.ovulo"
+-- ) 
 
-SELECT a.idAccount, a.balance, a.noAccount, at.description 
-FROM account as a 
-JOIN accountType AS AT 
-ON a.idAccountType=at.idAccountType 
-WHERE a.idUser = 7;
+-- SELECT a.idAccount, a.balance, a.noAccount, at.description 
+-- FROM account as a 
+-- JOIN accountType AS AT 
+-- ON a.idAccountType=at.idAccountType 
+-- WHERE a.idUser = 7;
 
-INSERT INTO `account` (idUser, idAccountType, balance, noAccount,cvu,alias) VALUES(
-	7,
-	(SELECT idAccountType FROM `accountType` WHERE idType=1 AND idChangeType=2),
-	0,
-	"123456789",
-	"147258369147258369025",
-	"duda.nube"
-)
+-- INSERT INTO `account` (idUser, idAccountType, balance, noAccount,cvu,alias) VALUES(
+-- 	7,
+-- 	(SELECT idAccountType FROM `accountType` WHERE idType=1 AND idChangeType=2),
+-- 	0,
+-- 	"123456789",
+-- 	"147258369147258369025",
+-- 	"duda.nube"
+-- )
