@@ -13,7 +13,7 @@ export function Movement({movement: {idMovement, username, amount, transactionDa
                         <strong>{username}</strong>
                     </header>
                     <p className='detail m-0'>
-                        <span className='type'>{type ? "Transferiste" : "Recibiste"}</span>
+                        <span className='type'>{type ? "Transferred" : "Received"}</span>
                         <span className='divider'>&#8250;</span>
                         <time>{transactionDate}</time>
                     </p>
