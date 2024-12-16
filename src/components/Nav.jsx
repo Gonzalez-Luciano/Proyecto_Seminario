@@ -1,62 +1,72 @@
-import { React, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/navCss.css";
 import { getNavDetails } from "../controllers/navController";
+import Deposit from "./Deposit";
 
 const Nav = ({ navigate, idUser }) => {
-  useEffect(() => {
-    getNavDetails(idUser, setImage);
-  }, []);
-
   const [image, setImage] = useState("");
+  const [showDeposit, setShowDeposit] = useState(false); // Estado para controlar la visibilidad del modal
 
+  // Obtener detalles del usuario cuando se carga el componente
+  React.useEffect(() => {
+    getNavDetails(idUser, setImage);
+  }, [idUser]);
+
+  // Función para cerrar sesión
   function logoutSubmit() {
     localStorage.removeItem("login");
     localStorage.removeItem("user");
     localStorage.setItem("loginStatus", "Logged out successfully");
     navigate("/");
   }
+
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom border-dark-subtle">
-      <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom border-dark-subtle">
+      <div className="container-fluid">
+        {/* Logo */}
+        <a className="navbar-brand d-flex align-items-center" href="#">
           <img
             src="/images/AlianzLogoFinal.png"
             alt="Alianz Logo"
-            class="logo-img"
+            className="logo-img"
           />
         </a>
+
+        {/* Toggler para dispositivos móviles */}
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasDarkNavbar"
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
+        {/* Menú Offcanvas */}
         <div
-          class="offcanvas offcanvas-end m-0 flex-grow-0 text-bg-dark"
-          tabindex="-1"
+          className="offcanvas offcanvas-end m-0 flex-grow-0 text-bg-dark"
+          tabIndex="-1"
           id="offcanvasDarkNavbar"
           aria-labelledby="offcanvasDarkNavbarLabel"
         >
-          <div class="offcanvas-header m-0">
+          <div className="offcanvas-header m-0">
             <img
               src="/images/AlianzLogoFinal.png"
               alt="Alianz Logo"
-              class="logo-img"
+              className="logo-img"
             />
             <button
               type="button"
-              class="btn-close btn-close-white me-1"
+              className="btn-close btn-close-white me-1"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body ms-5">
-            <ul class="navbar-nav justify-content-end align-items-center flex-grow-1 pe-3">
+          <div className="offcanvas-body ms-5">
+            <ul className="navbar-nav justify-content-end align-items-center flex-grow-1 pe-3">
+              {/* Perfil de usuario */}
               <li className="nav-item px-3 dropdown-center">
                 <button
                   className="btn p-0 d-flex align-items-center"
@@ -116,18 +126,25 @@ const Nav = ({ navigate, idUser }) => {
                   </li>
                 </ul>
               </li>
-              <li class="nav-item px-3">
-                <a class="nav-link" aria-current="page" href="#">
+
+              {/* Enlaces de navegación */}
+              <li className="nav-item px-3">
+                <a className="nav-link" aria-current="page" href="#">
                   Home
                 </a>
               </li>
-              <li class="nav-item px-3">
-                <a class="nav-link" href="#">
+              <li className="nav-item px-3">
+                <a className="nav-link" href="#">
                   About Us
                 </a>
               </li>
-              <li class="nav-item px-3">
-                <button class="btn btn-success d-flex align-items-center justify-content-between ps-0">
+
+              {/* Botón para abrir el modal de depósito */}
+              <li className="nav-item px-3">
+                <button
+                  className="btn btn-success d-flex align-items-center justify-content-between ps-0"
+                  onClick={() => setShowDeposit(true)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="mx-2"
@@ -136,9 +153,9 @@ const Nav = ({ navigate, idUser }) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="7 10 12 15 17 10" />
@@ -151,6 +168,23 @@ const Nav = ({ navigate, idUser }) => {
           </div>
         </div>
       </div>
+
+      {/* Modal de Bootstrap para depósito */}
+      {showDeposit && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          tabIndex="-1"
+          role="dialog"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              {/* Componente Deposit */}
+              <Deposit onClose={() => setShowDeposit(false)} />
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
