@@ -40,13 +40,15 @@ if ($idUser) {
                     $cvu .= mt_rand(0, 9);
                 }
 
-                $sql = "INSERT INTO `account` (idUser,idAccountType, balance, noAccount,cvu,alias) VALUES (
+                $sql = "INSERT INTO `account` (idUser,idAccountType, balance, noAccount,cvu,alias,active) VALUES (
                 ?,
                 (SELECT idAccountType FROM `accountType` WHERE idType=? AND idChangeType=?),
                 0,
                 ?,
                 ?,
-                ?)"; //crear los randoms
+                ?,
+                1
+                )"; //crear los randoms
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("iiisss", $dData["idUser"], $dData["idType"], $dData["idChangeType"], $noAccount, $cvu, $alias);
                 if ($stmt->execute()) {

@@ -3,7 +3,7 @@ import '../css/cuentaCss.css'
 import { getCuenta } from '../controllers/cuentaController.js';
 
 
-export const Cuentas = ({idUser,setIdAccounts,refresh}) => {
+export const Cuentas = ({idUser,setIdAccounts,refresh, setSelectedIdAccount}) => {
     const [cuentas, setCuentas] = useState([]);
     
     useEffect(()=>{
@@ -19,7 +19,8 @@ export const Cuentas = ({idUser,setIdAccounts,refresh}) => {
             {cuentas.map((cuenta)=>{
                 return (
                 <div key={cuenta.idAccount}>
-                    <div className='card container-fluid mb-3 border-3 border-success bg-dark'>
+                    <div className='card container-fluid mb-3 border-3 border-success bg-dark'
+                        onClick={()=>setSelectedIdAccount(cuenta.idAccount)}>
                         <a href="#" className='container-fluid bg-transparent text-light'>
                             <div className='container-fluid card-body d-lg-flex justify-content-between align-items-center'
                             width="100%">
