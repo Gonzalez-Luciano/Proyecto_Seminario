@@ -26,9 +26,9 @@ const MovementList = ({ idUser }) => {
   return (
     <>
       <header className="d-flex justify-content-between align-items-end pb-4">
-        <h4 className="m-0">Movimientos</h4>
-        <span id="btn-view-all" className="view-all" role="button" onClick={() => loadMovements(true)}>Ver todos</span>
-        <span id="btn-view-minus" className="view-all" role="button" onClick={() => loadMovements(false)}>Ver menos</span>
+        <h4 className="m-0">All movements</h4>
+        <span id="btn-view-all" className="view-all" role="button" onClick={() => loadMovements(true)}>view all</span>
+        <span id="btn-view-minus" className="view-all" role="button" onClick={() => loadMovements(false)}>close</span>
       </header>
       <main className="d-flex flex-column gap-2">
         {movements.map((element, index) => (
