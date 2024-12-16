@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `user_data` (
   `address` varchar(100) DEFAULT NULL,
   `city` varchar(30) DEFAULT NULL,
   `province` varchar(30) DEFAULT NULL,
+  `image` VARCHAR(1000),
   `active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`idUserData`),
   KEY `idUser` (`idUser`),
@@ -71,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `movement`(
     idAccountTo INT NOT NULL,
     amount FLOAT NOT NULL,
     transactionDate DATE NOT NULL,
-    image VARCHAR(1000),
     detail VARCHAR(150) NOT NULL,
     FOREIGN KEY (idAccountFrom) REFERENCES `account` (idAccount),
     FOREIGN KEY (idAccountTo) REFERENCES `account` (idAccount)   
