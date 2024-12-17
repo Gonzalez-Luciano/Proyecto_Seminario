@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/cuentaCss.css";
 import { getCuenta } from "../controllers/cuentaController.js";
-import React, { useEffect, useState } from "react";
-import "../css/cuentaCss.css";
-import { getCuenta } from "../controllers/cuentaController.js";
 
 export const Cuentas = ({
   idUser,
