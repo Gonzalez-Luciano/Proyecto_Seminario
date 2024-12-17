@@ -14,18 +14,18 @@ export function Movement({movement: {idMovement, noAccount, chargeType, username
                         <strong>{username}</strong>
                     </header>
                     <p className='detail m-0'>
-                        <span className='type'>{type ? "Transferred" : "Received"}</span>
+                        <span className='type'>{type ? "Received" : "Transferred"}</span>
                         <span className='divider'>&#8250;</span>
                         <time className='movement-date'>{transactionDate}</time>
                     </p>
                     <p className='detail m-0'>
-                        <span className='type'>{type ? "From" : "To"}</span> 
+                        <span className='type'>{type ? "To" : "From"}</span> 
                         <span className='divider'>&#8250;</span>
                         <span className='movement-date'>#{noAccount}</span>
                     </p>
                 </article>
                 <aside className='amount-container text-right'>
-                    <span className={"amount " + (type ? "amountTransfer" : "amountReceived")}>
+                    <span className={"amount " + (type ? "amountReceived" : "amountTransfer")}>
                         {
                             chargeType === 1 
                             ? "$ "
