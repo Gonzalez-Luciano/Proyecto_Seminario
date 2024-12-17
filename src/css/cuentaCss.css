@@ -1,3 +1,12 @@
 .bg-dark-light {
   background-color: #394047;
 }
+.card.active {
+  border-color: #28a745 !important;
+  background-color: #26a943 !important;
+  color: #28a745 !important;
+}
+
+.card.active .card-title, .card.active .text-light {
+  font-weight: bold;
+}

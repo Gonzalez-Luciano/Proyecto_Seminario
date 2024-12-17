@@ -1,9 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginView from "./views/loginView.jsx";
 import Dashboard from "./views/dashboard.jsx";
-import Protected from "./components/Protected.jsx";
 import SignUpView from "./views/signupView.jsx";
-import { Movement } from "./views/Movement.jsx";
+import Protected from "./components/Protected.jsx";
 
 const router = createBrowserRouter([
   {
