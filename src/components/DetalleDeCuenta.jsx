@@ -17,10 +17,12 @@ export function DetalleDeCuenta({ cuenta, setSelectedIdAccount, setSelectedAccou
         <p className="d-flex justify-content-between" style={{gap: '10px'}}><strong>Alias </strong>{cuenta.alias}</p>
         <p className="d-flex justify-content-between" style={{gap: '10px'}}><strong>CVU </strong>{cuenta.cvu}</p>
         <p className="d-flex justify-content-between mb-0" style={{gap: '10px'}}><strong>Total balance </strong> 
-        {cuenta.description === "Caja de Ahorro en U$D" ||
-        cuenta.description === "Cuenta corriente en U$D"
-        ? "U$D "
-        : "$ "}
+        {
+          cuenta.description === "Savings account in U$D" ||
+          cuenta.description === "Checking account in U$D"
+          ? "U$D "
+          : "$ "
+        }
         {cuenta.balance.toFixed(2)}
         </p>
     </div>
