@@ -19,7 +19,7 @@ const Transfer = ({ Account,handleRefresh }) => {
 
 
   useEffect(()=>{
-    if(error==="account not found"){
+    if(error==="account not found" || error==="account type not match"){
       let err = new Modal(document.getElementById("ModalFailureAccount"));
       err.show();
     }
