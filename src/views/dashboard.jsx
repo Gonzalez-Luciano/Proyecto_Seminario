@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import MovementList from "../components/MovementList";
 import { Cuentas } from "../components/Cuentas";
 import { NuevaCuenta } from "../components/NuevaCuenta";
+import Transfer from "../components/Transfer";
 import { DetalleDeCuenta } from "../components/DetalleDeCuenta";
 
 function Dashboard() {
@@ -13,6 +14,8 @@ function Dashboard() {
   const [idAccounts,setIdAccounts] = useState([]);
   const [refresh,setRefresh] = useState(false);
   const [selectedIdAccount,setSelectedIdAccount] = useState(0);
+  const [selectedAccount,setSelectedAccount] = useState([]);
+  
   const [cuentas, setCuentas] = useState([]);
   
   {
@@ -37,6 +40,10 @@ function Dashboard() {
     console.log(selectedIdAccount);
   },[selectedIdAccount]);
 
+  useEffect(()=>{
+    console.log(selectedAccount);
+  },[selectedAccount]);
+
 
   return (
     <> 
@@ -60,7 +67,9 @@ function Dashboard() {
                     selectedIdAccount={selectedIdAccount}
                     setSelectedIdAccount={setSelectedIdAccount}
                     setCuentas={setCuentas} // Pasar función para actualizar cuentas
+                    setSelectedAccount={setSelectedAccount}
                   />
+                  <Transfer Account={selectedAccount}/>
                   <MovementList idUser={idUser} />
                 </div>
               </div>
