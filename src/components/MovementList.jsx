@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Movement } from "./Movement";
 import { getMovementsByUserId } from "../controllers/dashboardController";
-import './../css/dashboard.css';
+import './../css/movementsList.css';
 
 const MovementList = ({ idUser }) => {
   const [movements, setMovements] = useState([]);
@@ -30,7 +30,7 @@ const MovementList = ({ idUser }) => {
         <span id="btn-view-all" className="view-all" role="button" onClick={() => loadMovements(true)}>view all</span>
         <span id="btn-view-minus" className="view-all" role="button" onClick={() => loadMovements(false)}>close</span>
       </header>
-      <main className="d-flex flex-column gap-2">
+      <main className="d-flex flex-column gap-2 movement-scroll">
         {movements.map((element, index) => (
             <Movement key={index} movement={element}/>
           ))}

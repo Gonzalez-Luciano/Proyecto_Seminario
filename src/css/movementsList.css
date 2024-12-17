@@ -1,3 +1,10 @@
+.movement-scroll {
+    overflow-y: auto;
+    padding-right: 15px;
+    max-height: 350px;
+  }
+  
+
 .view-all {
     border-bottom: 1px solid #212429;
     transition: border-bottom .2s ease-out;
