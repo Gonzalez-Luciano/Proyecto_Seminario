@@ -42,7 +42,7 @@ if ($method === 'POST') {
         WHERE m.idAccountTo IN (SELECT a.idAccount FROM `account` a WHERE a.idUser = ?))
     ) as movs
     ORDER BY movs.transactionDate DESC " .
-    ($isGetAll ? ";" : " LIMIT 5; ");
+    ($isGetAll ? ";" : " LIMIT 3; ");
     
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $iUserId, $iUserId);
