@@ -12,8 +12,14 @@ export const Cuentas = ({
   selectedIdAccount,
   setSelectedIdAccount,
   setCuentas, // Nueva prop para actualizar el estado global de cuentas
+  setSelectedAccount
 }) => {
   const [localCuentas, setLocalCuentas] = useState([]); // Estado local para cuentas
+
+  const setSelectedIdAccountAndAccount = (cuenta) => {
+    setSelectedAccount(cuenta);
+    setSelectedIdAccount(cuenta.idAccount);
+  };
 
   useEffect(() => {
     getCuenta(idUser, setLocalCuentas); // Obtener las cuentas desde la API
@@ -37,7 +43,7 @@ export const Cuentas = ({
                 "card container-fluid mb-3 border-3 border-success bg-dark " +
                 (isActive ? "active" : "")
               }
-              onClick={() => setSelectedIdAccount(cuenta.idAccount)}
+              onClick={() => setSelectedIdAccountAndAccount(cuenta)}
             >
               <a href="#" className="container-fluid bg-transparent text-light">
                 <div className="container-fluid card-body d-lg-flex justify-content-between align-items-center">
@@ -62,5 +68,4 @@ export const Cuentas = ({
       })}
     </div>
   );
-};
 };
