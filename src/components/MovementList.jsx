@@ -25,6 +25,7 @@ const MovementList = ({ idUser }) => {
 
   return (
     <>
+    <div style={{maxWidth: '400px'}}>
       <header className="d-flex justify-content-between align-items-end pb-4">
         <h4 className="m-0">All movements</h4>
         <span id="btn-view-all" className="view-all" role="button" onClick={() => loadMovements(true)}>view all</span>
@@ -35,6 +36,7 @@ const MovementList = ({ idUser }) => {
             <Movement key={index} movement={element}/>
           ))}
       </main>
+    </div>
     </>
   );
 };

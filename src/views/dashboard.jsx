@@ -48,7 +48,7 @@ function Dashboard() {
   return (
     <> 
       <Nav navigate={navigate} idUser={idUser}/>
-      <div className="container d-flex flex-row ml-auto align-items-center justify-content-between">
+      <div className="container d-flex flex-row ml-auto align-items-start justify-content-between">
         <div className="d-flex mt-5 text-light fixed">
           {user ? (
             <div className="mx-5">
@@ -60,30 +60,34 @@ function Dashboard() {
                     <h3 className="mb-3">Accounts</h3> 
                     {idAccounts.length < 5 && <NuevaCuenta idUser={idUser} handleRefresh={handleRefresh}/>}
                   </div>
-                  <Cuentas
-                    idUser={idUser}
-                    setIdAccounts={setIdAccounts}
-                    refresh={refresh}
-                    selectedIdAccount={selectedIdAccount}
-                    setSelectedIdAccount={setSelectedIdAccount}
-                    setCuentas={setCuentas} // Pasar función para actualizar cuentas
-                    setSelectedAccount={setSelectedAccount}
-                  />
+                  <div className="d-flex flex-column flex-lg-row justify-content-between">
+                    <div className="m-0 w-auto">
+                      <Cuentas
+                        idUser={idUser}
+                        setIdAccounts={setIdAccounts}
+                        refresh={refresh}
+                        selectedIdAccount={selectedIdAccount}
+                        setSelectedIdAccount={setSelectedIdAccount}
+                        setCuentas={setCuentas} // Pasar función para actualizar cuentas
+                        setSelectedAccount={setSelectedAccount}
+                      />
+                    </div>
+                    {selectedIdAccount !== 0 && (
+                      <div className="m-0 w-auto">
+                          <DetalleDeCuenta setSelectedIdAccount={setSelectedIdAccount} setSelectedAccount={setSelectedAccount}
+                            cuenta={cuentas.find((cuenta) => cuenta.idAccount === selectedIdAccount)}
+                          />
+                      </div>
+                    )}
+                  </div>
                   <Transfer Account={selectedAccount}/>
-                  <MovementList idUser={idUser} />
                 </div>
+                <MovementList idUser={idUser} />
               </div>
             </div>) : (
-            <p>Loading...</p>
-          )}
+              <p>Loading...</p>
+            )}
         </div>
-        {selectedIdAccount !== 0 && (
-          <div className="">
-              <DetalleDeCuenta className=""
-                cuenta={cuentas.find((cuenta) => cuenta.idAccount === selectedIdAccount)}
-              />
-          </div>
-        )}
       </div>
     </>
   );

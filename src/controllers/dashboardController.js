@@ -40,7 +40,7 @@ export const getMovementsByUserId = async (getAll, userId) => {
         },
         body: JSON.stringify({ getAll, userId }),
     });
-    console.log(getAll)
+    
     const rawResponse = await response.text(); // Lee la respuesta como texto.
     console.log("Respuesta del servidor:", rawResponse);
     

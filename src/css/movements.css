@@ -1,7 +1,6 @@
 .movement-item {
     display: flex;
     gap: 8px;
-    /* min-width: 400px; */
     border-bottom: 1px solid #373e4a;
     padding-bottom: 8px;
 }
@@ -35,7 +34,7 @@
 }
 
 .type {
-    font-size: 0.9em;
+    font-size: 0.9rem;
 }
 
 .amount-container {

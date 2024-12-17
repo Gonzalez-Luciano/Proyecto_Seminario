@@ -23,18 +23,20 @@ if ($method === 'POST') {
     // Obtener todos los usuarios
     $sql = "
     SELECT movs.* FROM (
-        (SELECT m.idMovement as 'idMovement', CONCAT(ud.firstName, ' ', ud.lastName) as 'username', m.amount as 'amount',
+        (SELECT m.idMovement as 'idMovement', myAccount.noAccount as 'noAccount', CONCAT(ud.firstName, ' ', ud.lastName) as 'username', m.amount as 'amount',
         m.transactionDate as 'transactionDate', ud.image as 'image', 0 AS 'type'
         FROM `movement` m 
         JOIN `account` a ON m.idAccountTo = a.idAccount
+        JOIN `account` myAccount ON m.idAccountFrom = myAccount.idAccount
         JOIN `user` u ON a.idUser = u.idUser
         JOIN `user_data` ud ON u.idUser = ud.idUser
         WHERE m.idAccountFrom IN (SELECT a.idAccount FROM `account` a WHERE a.idUser = ?))
         UNION
-        (SELECT m.idMovement as 'idMovement', CONCAT(ud.firstName, ' ', ud.lastName) as 'username', m.amount as 'amount',
+        (SELECT m.idMovement as 'idMovement', myAccount.noAccount as 'noAccount', CONCAT(ud.firstName, ' ', ud.lastName) as 'username', m.amount as 'amount',
         m.transactionDate as 'transactionDate', ud.image as 'image', 1 AS 'type'
         FROM `movement` m 
         JOIN `account` a ON m.idAccountFrom = a.idAccount
+        JOIN `account` myAccount ON m.idAccountTo = myAccount.idAccount
         JOIN `user` u ON a.idUser = u.idUser
         JOIN `user_data` ud ON u.idUser = ud.idUser
         WHERE m.idAccountTo IN (SELECT a.idAccount FROM `account` a WHERE a.idUser = ?))
@@ -47,12 +49,13 @@ if ($method === 'POST') {
     $stmt->execute();
 
     // Definir las variables para bind_result antes de ejecutar el fetch
-    $stmt->bind_result($idMovement, $username, $amount, $transactionDate, $image, $type);
+    $stmt->bind_result($idMovement, $noAccount, $username, $amount, $transactionDate, $image, $type);
 
     // Ahora puedes recorrer los resultados correctamente
     while ($stmt->fetch()) {
         $oMovement = new Movement(
             $idMovement,
+            $noAccount,
             $username,
             $amount,
             $transactionDate,

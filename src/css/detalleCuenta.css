@@ -1,0 +1,16 @@
+.content-detail {
+    background-color: #3b3f4e;
+}
+
+.close-btn {   
+    cursor: pointer;
+}
+
+.close-btn > .bi{
+    transition: transform .2s ease-out;
+}
+
+.close-btn:hover > .bi{
+    transform: scale(1.2);
+    transition: transform, font-weight .2s ease-out;
+}

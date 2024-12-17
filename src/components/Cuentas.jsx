@@ -42,8 +42,8 @@ export const Cuentas = ({
               }
               onClick={() => setSelectedIdAccountAndAccount(cuenta)}
             >
-              <a href="#" className="container-fluid bg-transparent text-light">
-                <div className="container-fluid card-body d-lg-flex justify-content-between align-items-center">
+              <a href="#" className="container-fluid bg-transparent text-light p-0">
+                <div className="container-fluid card-body d-lg-flex justify-content-between align-items-center" style={{gap: '15px'}}>
                   <div className="m-0">
                     <h6 className="card-title mb-0">{cuenta.description}</h6>
                     <small className="text-light">#{cuenta.noAccount}</small>

@@ -1,6 +1,6 @@
 import './../css/movements.css'
 
-export function Movement({movement: {idMovement, username, amount, transactionDate, image, type}}) {
+export function Movement({movement: {idMovement, noAccount, username, amount, transactionDate, image, type}}) {
     const defaultImage = "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
     const finalAmount = amount != null ? amount.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 0;
     return (
@@ -17,6 +17,11 @@ export function Movement({movement: {idMovement, username, amount, transactionDa
                         <span className='type'>{type ? "Transferred" : "Received"}</span>
                         <span className='divider'>&#8250;</span>
                         <time className='movement-date'>{transactionDate}</time>
+                    </p>
+                    <p className='detail m-0'>
+                        <span className='type'>{type ? "From" : "To"}</span> 
+                        <span className='divider'>&#8250;</span>
+                        <span className='movement-date'>#{noAccount}</span>
                     </p>
                 </article>
                 <aside className='amount-container text-right'>

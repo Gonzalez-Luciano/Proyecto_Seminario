@@ -16,7 +16,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($idUser) {
     switch ($method) {
         case "POST": {
-            $sql = "SELECT a.idAccount, a.idAccountType, a.balance, a.noAccount, at.description FROM account as a JOIN accountType AS at ON a.idAccountType=at.idAccountType WHERE a.idUser = ?";
+            $sql = "SELECT a.idAccount, a.idAccountType, a.balance, a.noAccount, at.description, a.cvu, a.alias FROM account as a JOIN accountType AS at ON a.idAccountType=at.idAccountType WHERE a.idUser = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt) {
                 $stmt->bind_param("i", $idUser);
