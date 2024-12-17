@@ -134,7 +134,7 @@ const Nav = ({ navigate, idUser }) => {
                 </a>
               </li>
               <li className="nav-item px-3">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="https://github.com/Gonzalez-Luciano/Proyecto_Seminario">
                   About Us
                 </a>
               </li>
