@@ -50,8 +50,8 @@ export const Cuentas = ({
                   </div>
                   <div className="d-flex justify-content-start justify-content-lg-end m-lg-0">
                     <h5 className="mb-0">
-                      {cuenta.description === "Caja de Ahorro en U$D" ||
-                      cuenta.description === "Cuenta corriente en U$D"
+                      {cuenta.description ==
+                      ("Savings account in U$D" || "Checking account in U$D")
                         ? "U$D "
                         : "$ "}
                       {cuenta.balance.toFixed(2)}

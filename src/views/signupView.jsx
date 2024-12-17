@@ -476,9 +476,29 @@ function SignUpView() {
                     <option value="" selected>
                       Open this select menu
                     </option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="Buenos Aires">Buenos Aires</option>
+                    <option value="Salta">Salta</option>
+                    <option value="Jujuy">Jujuy</option>
+                    <option value="4Formosa">Formosa</option>
+                    <option value="Misiones">Misiones</option>
+                    <option value="Corrientes">Corrientes</option>
+                    <option value="Entre Ríos">Entre Ríos</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="Tucumán">Tucumán</option>
+                    <option value="Santiago del Estero">Santiago del Estero</option>
+                    <option value="Córdoba">Córdoba</option>
+                    <option value="Chaco">Chaco</option>
+                    <option value="Catamarca">Catamarca</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="San Juan">San Juan</option>
+                    <option value="San Luis">San Luis</option>
+                    <option value="Mendoza">Mendoza</option>
+                    <option value="La Pampa">La Pampa</option>
+                    <option value="Neuquén">Neuquén</option>
+                    <option value="Río Negro">Río Negro</option>
+                    <option value="Chubut">Chubut</option>
+                    <option value="Santa Cruz">Santa Cruz</option>
+                    <option value="Tierra del Fuego">Tierra del Fuego</option>
                   </select>
                   <label htmlFor="floatingProvince">Select a province</label>
                   <div className="invalid-feedback">
