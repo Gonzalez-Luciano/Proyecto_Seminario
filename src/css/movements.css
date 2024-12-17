@@ -38,27 +38,33 @@
 }
 
 .amount-container {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .amount {
-    font-size: 1.4em;
+  font-size: 1.4em;
 }
 
 .amountReceived {
-    color: #a5ff8f;
+  color: #a5ff8f;
 }
 
 .amountReceived::before {
-    content: "+";
-    padding-right: 3px;
+  content: "+";
+  padding-right: 3px;
 }
 
 .amountTransfer {
-    color: #ff8f8f;
+  color: #ff8f8f;
 }
 
 .amountTransfer::before {
-    content: "-";
-    padding-right: 3px;
+  content: "-";
+  padding-right: 3px;
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

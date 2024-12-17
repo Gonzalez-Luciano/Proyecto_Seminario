@@ -80,9 +80,9 @@ function Dashboard() {
                       </div>
                     )}
                   </div>
-                  <Transfer Account={selectedAccount}/>
+                  <Transfer Account={selectedAccount} handleRefresh={handleRefresh}/>
                 </div>
-                <MovementList idUser={idUser} />
+                <MovementList idUser={idUser} refresh={refresh}/>
               </div>
             </div>) : (
               <p>Loading...</p>

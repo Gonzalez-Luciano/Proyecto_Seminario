@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { VerifyTransfer, ConfirmTransfer } from "../controllers/transferController";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min";
 
-const Transfer = ({ Account }) => {
+const Transfer = ({ Account,handleRefresh }) => {
   const [error, setError] = useState("");
   const [recipientDetails, setRecipientDetails] = useState("");
   const [amount, setAmount] = useState(""); // Para la entrada del formulario
   const [recipient, setRecipient] = useState("");
   const [confirmedAmount, setConfirmedAmount] = useState(null); // Para almacenar el monto confirmado
   const [showRecipientModal, setShowRecipientModal] = useState(false);
+  
 
   useEffect(() => {
     if (recipientDetails) {
@@ -15,16 +17,51 @@ const Transfer = ({ Account }) => {
     }
   }, [recipientDetails]);
 
+
+  useEffect(()=>{
+    if(error==="account not found"){
+      let err = new Modal(document.getElementById("ModalFailureAccount"));
+      err.show();
+    }
+    setError("");
+  },[error]);
+
   const handleClick = () => {
-    VerifyTransfer(
-      Account.idAccount,
-      Account,
-      amount,
-      recipient,
-      setError,
-      setRecipientDetails
-    );
+    if(amount==="" || amount.includes('-')){
+      let err = new Modal(document.getElementById("ModalFailureAmount"));
+      err.show();
+      handleClose;
+    }else if(recipient==="" || recipient===Account.cvu || recipient===Account.alias){
+      let err = new Modal(document.getElementById("ModalFailureAccount"));
+      err.show();
+      handleClose;
+    }else if(amount <= Account.balance){
+      VerifyTransfer(
+        Account.idAccount,
+        Account,
+        amount,
+        recipient,
+        setError,
+        setRecipientDetails
+      );
+      if(recipientDetails!== ""){
+        document.getElementById('transferModal').setAttribute("aria-hidden","true");
+      }
+    }
+    else{
+      let err = new Modal(document.getElementById("ModalFailureCantAmount"));
+      err.show();
+      handleClose;
+    }
   };
+
+  const handleCloseModal = () => {
+    const transferModalElement = document.getElementById("transferModal");
+    const transferModal = Modal.getInstance(transferModalElement) || new Modal(transferModalElement);
+    const transferSuccess = new Modal(document.getElementById("transferSuccess"));
+    transferSuccess.show();
+    transferModal.hide();
+  }
 
   const handleInputChange = (e, type) => {
     switch (type) {
@@ -47,6 +84,7 @@ const Transfer = ({ Account }) => {
         recipientDetails,
         setRecipientDetails)
     handleClose();
+    handleRefresh();
   };
 
   const handleClose = () => {
@@ -59,7 +97,7 @@ const Transfer = ({ Account }) => {
   return (
     <div data-bs-theme="dark">
       <button
-        className="bg-primary bg-transparent border-dark
+        className="bg-success border-dark
         mb-3"
         type="button"
         data-bs-toggle="modal"
@@ -86,9 +124,12 @@ const Transfer = ({ Account }) => {
 
             <div className="modal-body">
               <div className="d-grid mb-3">
-                <label className="mb-3">Nro Account</label>
+                <label className="mb-3"><strong>Account</strong></label>
 
-                <p>{Account.noAccount}</p>
+                <p>{Account.description}</p>
+  
+
+                <p>#{Account.noAccount}</p>
               </div>
 
               <div className="d-grid mb-3">
@@ -96,9 +137,10 @@ const Transfer = ({ Account }) => {
                 <input
                   type="number"
                   id="depositAmount"
-                  className="form-control"
+                  class="form-control no-spinner"
                   placeholder="Enter the amount"
                   value={amount}
+
                   onChange={(e) => handleInputChange(e, "amount")}
                 />
               </div>
@@ -106,7 +148,8 @@ const Transfer = ({ Account }) => {
                 <label className="mb-3">Recipient Alias or CVU</label>
                 <input
                   type="text"
-                  className="form-control"
+                  id="recipient"
+                  class="form-control"
                   placeholder="Enter Alias or CVU"
                   value={recipient}
                   onChange={(e) => handleInputChange(e, "recipient")}
@@ -119,13 +162,14 @@ const Transfer = ({ Account }) => {
                 type="button"
                 className="btn btn-secondary mx-2"
                 data-bs-dismiss="modal"
+                onClick={handleClose}
               >
                 Cancel
               </button>
               <button
                 type="button"
+                id="btnConfirm"
                 className="btn btn-success mx-2"
-                data-bs-dismiss="modal"
                 onClick={() => handleClick()}
               >
                 Confirm
@@ -145,26 +189,47 @@ const Transfer = ({ Account }) => {
         >
           <div className="modal-dialog modal-fullscreen">
             <div className="modal-content bg-dark">
-              <div className="modal-header">
+              <div className="modal-header border-success">
                 <h5 className="modal-title" id="recipientModalLabel">
                   Confirm Transfer Details
                 </h5>
               </div>
               <div className="modal-body">
-              <p>
-                  <strong>{recipientDetails.username}</strong>
-                </p>
-                <p>
-                  <strong>Alias:</strong> {recipientDetails.alias}
-                </p>
-                <p>
-                  <strong>CVU:</strong> {recipientDetails.cvu}
-                </p>
-                <p>
-                  <strong>Amount:</strong> ${amount}
-                </p>
+                <h5 className="d-inline mx-0 px-1 border-bottom border-3 border-success"     id="recipientModalLabel">
+                  To: 
+                </h5>
+                <div className="mt-3">
+                  <p>
+                    <strong>{recipientDetails.username}</strong>
+                  </p>
+                  <p>
+                    <strong>Alias:</strong> {recipientDetails.alias}
+                  </p>
+                  <p>
+                    <strong>CVU:</strong> {recipientDetails.cvu}
+                  </p>
+                </div>
+                <br />
+                <h5 className="d-inline mx-0 px-1 border-bottom border-3 border-success"     id="recipientModalLabel">
+                  From: 
+                </h5>
+                <div className="mt-3">
+                  <p>
+                    <strong>Account: </strong> {Account.description}
+                  </p>
+                  <p>
+                    <strong>Account Number: #</strong> {Account.noAccount}
+                  </p>
+                </div>
               </div>
-              <div className="modal-footer">
+
+              <div className="modal-header border-0">
+                <h3 className="modal-title">
+                  Amount: {Account.idChangeType==1 ? "U$D ": "$ "}<strong>{amount}</strong>
+                </h3>
+              </div>
+
+              <div className="modal-footer border-success">
                 <button
                   type="button"
                   className="btn btn-danger mx-2"
@@ -175,7 +240,9 @@ const Transfer = ({ Account }) => {
                 <button
                   type="button"
                   className="btn btn-success mx-2"
-                  onClick={handleConfirmPayment}
+                  onClick={()=>{
+                    handleConfirmPayment()
+                    handleCloseModal()}}
                 >
                   Confirm
                 </button>
@@ -217,6 +284,124 @@ const Transfer = ({ Account }) => {
           </div>
         </div>
       </div>
+
+      {/* Error por monto incorrecto*/} 
+      <div
+        className="modal fade"
+        id="ModalFailureAmount"
+        tabIndex="-1"
+        aria-labelledby="failureModal"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark">
+            <div className="p-3 d-flex justify-content-between align-items-center">
+              <img
+                style={{ width: "48px", height: "48px" }}
+                src="https://img.icons8.com/color/48/cancel--v1.png"
+                alt="cancel--v1"
+              />
+              <h5 className="modal-title text-light">
+                Please enter a valid amount
+              </h5>
+            </div>
+            <div className="modal-footer border-top-0">
+              <button
+                type="button"
+                className="btn btn-danger mb-2"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Error por cuenta*/} 
+      <div
+        className="modal fade"
+        id="ModalFailureAccount"
+        tabIndex="-1"
+        aria-labelledby="failureModal"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark">
+            <div className="p-3 d-flex justify-content-between align-items-center">
+              <img
+                style={{ width: "48px", height: "48px" }}
+                src="https://img.icons8.com/color/48/cancel--v1.png"
+                alt="cancel--v1"
+              />
+              <h5 className="modal-title text-light">
+                Please enter a valid CVU or alias
+              </h5>
+            </div>
+            <div className="modal-footer border-top-0">
+              <button
+                type="button"
+                className="btn btn-danger mb-2"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Error por monto menor que el de la cuenta*/}
+      <div
+        className="modal fade"
+        id="ModalFailureCantAmount"
+        tabIndex="-1"
+        aria-labelledby="failureModal"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark">
+            <div className="p-3 d-flex justify-content-between align-items-center">
+              <img
+                style={{ width: "48px", height: "48px" }}
+                src="https://img.icons8.com/color/48/cancel--v1.png"
+                alt="cancel--v1"
+              />
+              <h5 className="modal-title text-light">
+                Insufficient funds
+              </h5>
+            </div>
+            <div className="modal-footer border-top-0">
+              <button
+                type="button"
+                className="btn btn-danger mb-2"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/*Transacción confirmada*/}
+      <div class="modal fade" id="transferSuccess" tabindex="-1" aria-labelledby="successModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content bg-dark">
+            <div class="p-3 d-flex justify-content-between align-items-center">
+              <img style={{width:"48px",height:"48px"}} src="https://img.icons8.com/fluency/48/checked.png" alt="checked"/>
+              <h5 class="modal-title text-light">Transfer sucess!</h5>
+            </div>
+            <div class="modal-footer border-top-0">
+              <button type="button" class="btn btn-success mb-2" 
+                onClick={()=> handleClose}
+                data-bs-dismiss="modal"
+              > Close </button>
+            </div>
+          </div>
+        </div>
+      </div> 
+
     </div>
   );
 };

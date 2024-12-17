@@ -49,24 +49,24 @@ export const NuevaCuenta = ({idUser, handleRefresh}) => {
             <div class="modal-content bg-dark">
               
               <div class="modal-header">
-                <h5 class="modal-title" id="tituloModal">Nueva Cuenta</h5>
+                <h5 class="modal-title" id="tituloModal">New Account</h5>
               </div>
             
               <div class="modal-body">
                 <div className="d-grid mb-3">
-                  <label className='mb-3'>Tipo de Cuenta</label>
+                  <label className='mb-3'>Account Type</label>
 
                   <select className='form-select bg-dark text-light border-success' name="" id="idType">
-                    <option value="1">Caja de Ahorros</option>
-                    <option value="2">Cuenta Corriente</option>
+                    <option value="1">Saving Account</option>
+                    <option value="2">Checking Account </option>
                   </select>
                 </div>
 
                 <div className="d-grid mb-3">
-                  <label className='mb-3'>Tipo de Divisa</label>
+                  <label className='mb-3'>Currency Type</label>
                   <select className='form-select bg-dark text-light border-success' name="" id="idChangeType">
                     <option value="1">Pesos</option>
-                    <option value="2">Dólares</option>
+                    <option value="2">Dolars</option>
                   </select>
                   
                 </div>
@@ -74,13 +74,13 @@ export const NuevaCuenta = ({idUser, handleRefresh}) => {
             
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                >Cancelar</button>
+                >Cancel</button>
                 <button 
                   type="button" 
                   class="btn btn-success"
                   onClick={crearCuenta}
                   data-bs-dismiss="modal"
-                >Crear Cuenta</button>
+                >Create Account</button>
               </div>
 
           </div>
@@ -92,11 +92,11 @@ export const NuevaCuenta = ({idUser, handleRefresh}) => {
           <div class="modal-content bg-dark">
             <div class="p-3 d-flex justify-content-between align-items-center">
               <img style={{width:"48px",height:"48px"}} src="https://img.icons8.com/color/48/cancel--v1.png" alt="cancel--v1"/>
-              <h5 class="modal-title text-light"> Error al crear una nueva cuenta</h5>
+              <h5 class="modal-title text-light"> Problems Creating New Account <br />Please, Try Again </h5>
             </div>
             <div class="modal-footer border-top-0">
               <button type="button" class="btn btn-danger mb-2" data-bs-dismiss="modal"
-              > Cerrar </button>
+              > Close </button>
             </div>
           </div>
         </div>
@@ -107,13 +107,13 @@ export const NuevaCuenta = ({idUser, handleRefresh}) => {
           <div class="modal-content bg-dark">
             <div class="p-3 d-flex justify-content-between align-items-center">
               <img style={{width:"48px",height:"48px"}} src="https://img.icons8.com/fluency/48/checked.png" alt="checked"/>
-              <h5 class="modal-title text-light">Cuenta Creada</h5>
+              <h5 class="modal-title text-light">New Account Created!</h5>
             </div>
             <div class="modal-footer border-top-0">
               <button type="button" class="btn btn-success mb-2" 
                 onClick={()=> handleRefresh()}
                 data-bs-dismiss="modal"
-              > Cerrar </button>
+              > Close </button>
             </div>
           </div>
         </div>
