@@ -5,18 +5,18 @@ export function Movement({movement: {idMovement, username, amount, transactionDa
     const finalAmount = amount != null ? amount.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 0;
     return (
         <>
-            <section id={idMovement} className='text-light d-flex align-items-center'>
+            <section id={idMovement} className='movement-item text-light d-flex align-items-center'>
                 <aside>
-                    <img src={image || defaultImage} alt="" />
+                    <img className='movement-image' src={image == "default" ? defaultImage : image} alt="" />
                 </aside>
-                <article>
+                <article className='movement-detail'>
                     <header>
                         <strong>{username}</strong>
                     </header>
                     <p className='detail m-0'>
                         <span className='type'>{type ? "Transferred" : "Received"}</span>
                         <span className='divider'>&#8250;</span>
-                        <time>{transactionDate}</time>
+                        <time className='movement-date'>{transactionDate}</time>
                     </p>
                 </article>
                 <aside className='amount-container text-right'>
