@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import MovementList from "./MovementList";
 import { Cuentas } from "../components/Cuentas";
 import { NuevaCuenta } from "../components/NuevaCuenta";
+import Transfer from "../components/Transfer";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ function Dashboard() {
   const [idAccounts,setIdAccounts] = useState([]);
   const [refresh,setRefresh] = useState(false);
   const [selectedIdAccount,setSelectedIdAccount] = useState(0);
+  const [selectedAccount,setSelectedAccount] = useState([]);
   
   let handleRefresh = ()=>{
     setRefresh(!refresh);
@@ -30,6 +32,10 @@ function Dashboard() {
     console.log(selectedIdAccount);
   },[selectedIdAccount]);
 
+  useEffect(()=>{
+    console.log(selectedAccount);
+  },[selectedAccount]);
+
 
   return (
     <> 
@@ -43,7 +49,8 @@ function Dashboard() {
                 {idAccounts.length < 5 && <NuevaCuenta idUser={idUser} handleRefresh={handleRefresh}/>}
               </div>
               <div className="container-fluid mx-3 text-light">
-                <Cuentas idUser={idUser} setIdAccounts={setIdAccounts} refresh={refresh} setSelectedIdAccount={setSelectedIdAccount}/>
+                <Cuentas idUser={idUser} setIdAccounts={setIdAccounts} refresh={refresh} setSelectedIdAccount={setSelectedIdAccount} setSelectedAccount={setSelectedAccount}/>
+                <Transfer Account={selectedAccount}/>
                 <MovementList idUser={idUser} />
               </div>
             </div>
