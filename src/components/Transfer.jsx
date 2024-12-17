@@ -1,14 +1,29 @@
-import React, { useState } from "react";
-import { DoTransfer } from "../controllers/transferController";
+import React, { useEffect, useState } from "react";
+import { VerifyTransfer, ConfirmTransfer } from "../controllers/transferController";
 
 const Transfer = ({ Account }) => {
   const [error, setError] = useState("");
+  const [recipientDetails, setRecipientDetails] = useState("");
   const [amount, setAmount] = useState(""); // Para la entrada del formulario
   const [recipient, setRecipient] = useState("");
   const [confirmedAmount, setConfirmedAmount] = useState(null); // Para almacenar el monto confirmado
+  const [showRecipientModal, setShowRecipientModal] = useState(false);
+
+  useEffect(() => {
+    if (recipientDetails) {
+      setShowRecipientModal(true);
+    }
+  }, [recipientDetails]);
 
   const handleClick = () => {
-    DoTransfer(Account.idAccount, Account, amount, recipient, setError);
+    VerifyTransfer(
+      Account.idAccount,
+      Account,
+      amount,
+      recipient,
+      setError,
+      setRecipientDetails
+    );
   };
 
   const handleInputChange = (e, type) => {
@@ -22,10 +37,24 @@ const Transfer = ({ Account }) => {
     }
   };
 
+  const handleConfirmPayment = () => {
+    // Aquí va la lógica de confirmación de la transferencia
+    ConfirmTransfer( Account.idAccount,
+        Account,
+        amount,
+        recipient,
+        setError,
+        recipientDetails,
+        setRecipientDetails)
+    handleClose();
+  };
+
   const handleClose = () => {
     // Resetear los estados
     setAmount("");
-    setConfirmedAmount(null);
+    setRecipient("");
+    setRecipientDetails("");
+    setShowRecipientModal(false);
   };
   return (
     <div data-bs-theme="dark">
@@ -105,6 +134,56 @@ const Transfer = ({ Account }) => {
           </div>
         </div>
       </div>
+
+      {/* Modal de vista previa */}
+      {showRecipientModal && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          aria-labelledby="recipientModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-fullscreen">
+            <div className="modal-content bg-dark">
+              <div className="modal-header">
+                <h5 className="modal-title" id="recipientModalLabel">
+                  Confirm Transfer Details
+                </h5>
+              </div>
+              <div className="modal-body">
+              <p>
+                  <strong>{recipientDetails.username}</strong>
+                </p>
+                <p>
+                  <strong>Alias:</strong> {recipientDetails.alias}
+                </p>
+                <p>
+                  <strong>CVU:</strong> {recipientDetails.cvu}
+                </p>
+                <p>
+                  <strong>Amount:</strong> ${amount}
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-danger mx-2"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success mx-2"
+                  onClick={handleConfirmPayment}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Error Modal */}
       <div
