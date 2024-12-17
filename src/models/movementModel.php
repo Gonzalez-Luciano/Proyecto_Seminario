@@ -51,13 +51,14 @@ if ($method === 'POST') {
     $stmt->execute();
 
     // Definir las variables para bind_result antes de ejecutar el fetch
-    $stmt->bind_result($idMovement, $noAccount, $username, $amount, $transactionDate, $image, $type);
+    $stmt->bind_result($idMovement, $noAccount, $chargeType, $username, $amount, $transactionDate, $image, $type);
 
     // Ahora puedes recorrer los resultados correctamente
     while ($stmt->fetch()) {
         $oMovement = new Movement(
             $idMovement,
             $noAccount,
+            $chargeType,
             $username,
             $amount,
             $transactionDate,
