@@ -3,7 +3,7 @@ import { Movement } from "./Movement";
 import { getMovementsByUserId } from "../controllers/dashboardController";
 import './../css/dashboard.css';
 
-const MovementList = ({ idUser }) => {
+const MovementList = ({ idUser, refresh }) => {
   const [movements, setMovements] = useState([]);
 
   // Manejar la adición de un nuevo usuario
@@ -21,7 +21,7 @@ const MovementList = ({ idUser }) => {
 
   useEffect(() => {
     loadMovements();
-  }, []);
+  }, [refresh]);
 
   return (
     <>

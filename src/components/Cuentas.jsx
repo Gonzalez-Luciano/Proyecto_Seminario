@@ -29,7 +29,7 @@ export const Cuentas = ({
         return (
           <div key={cuenta.idAccount}>
             <div
-              className="card container-fluid mb-3 border-3 border-success bg-dark"
+              className="card container-fluid mb-3 border-3 border-success bg-transparent"
               onClick={() => setSelectedIdAccountAndAccount(cuenta)}
             >
               <a href="#" className="container-fluid bg-transparent text-light">
@@ -43,8 +43,8 @@ export const Cuentas = ({
                   </div>
                   <div className="d-flex justify-content-start justify-content-lg-end m-lg-0">
                     <h5 className="mb-0">
-                      {cuenta.description ==
-                      ("Caja de Ahorro en U$D" || "Cuenta corriente en U$D")
+                      {cuenta.id ==
+                      ("Savings account in U$D" || "Checking account in U$D")
                         ? "U$D "
                         : "$ "}
                       {cuenta.balance.toFixed(2)}

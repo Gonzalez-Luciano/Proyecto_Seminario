@@ -50,8 +50,8 @@ function Dashboard() {
               </div>
               <div className="container-fluid mx-3 text-light">
                 <Cuentas idUser={idUser} setIdAccounts={setIdAccounts} refresh={refresh} setSelectedIdAccount={setSelectedIdAccount} setSelectedAccount={setSelectedAccount}/>
-                <Transfer Account={selectedAccount}/>
-                <MovementList idUser={idUser} />
+                <Transfer Account={selectedAccount} handleRefresh={handleRefresh}/>
+                <MovementList idUser={idUser} refresh={refresh}/>
               </div>
             </div>
           </div>) : (
